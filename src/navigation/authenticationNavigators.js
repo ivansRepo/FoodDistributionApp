@@ -4,6 +4,8 @@ import SignInScreen from "../screens/authenticationScreen/SignInScreen";
 import WelcomeScreen from "../screens/authenticationScreen/WelcomeScreen";
 import RootDonorTabs from "./DonorTabs";
 import ProfileScreen from "../screens/profileScreen";
+import DonationDetailScreen from "../screens/DonationDetailScreen";
+import StatisticScreen from "../screens/StatisticScreen";
 
 const Authentication = createStackNavigator();
 
@@ -29,6 +31,22 @@ export default function AuthenticationStack(){
             <Authentication.Screen 
                 name ="ProfileScreen"
                 component = {ProfileScreen}
+                options = {{
+                    headerShown: false,
+                    ...TransitionPresets.RevealFromBottomAndroid
+                }}
+            />
+            <Authentication.Screen 
+                name ="DonationDetailScreen"
+                component = {DonationDetailScreen}
+                options = {{
+                    headerShown: false,
+                    ...TransitionPresets.RevealFromBottomAndroid
+                }}
+            />
+            <Authentication.Screen 
+                name ="StatisticScreen"
+                component = {StatisticScreen}
                 options = {{
                     headerShown: false,
                     ...TransitionPresets.RevealFromBottomAndroid

@@ -14,21 +14,18 @@ export default function HomeScreen({navigation}){
                 <Text style={styles.description}>With just your food excess, you can share a meal with someone in need</Text>
             </View>
 
-            <DonationCard />
+            <DonationCard navigation={navigation}/>
 
             <View style={styles.textContainer}>
                 <Text style={{fontSize:22,fontWeight: 'bold'}}>Together, we can end hunger amongst homeless</Text>
             </View>
 
-            <StatisticCard />
+            <StatisticCard navigation={navigation}/>
 
             <View style={{marginTop:40, marginBottom:40}}>
                 <JoinUsCard />
             </View>
-
-            
         </ScrollView>
-
     )
 }
 

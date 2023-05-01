@@ -5,12 +5,10 @@ import { colors } from '../global/styles';
 import { Icon } from 'react-native-elements';
 
 
-const StatisticCard = () => {
-
-    const progress = 0.6; // This is the progress value between 0 and 1
+const StatisticCard = ({navigation}) => {
 
     return(
-        <Card style = { styles.card }>
+        <Card onPress={()=>{navigation.navigate("StatisticScreen")}} style = { styles.card }>
             <View style={{height:250}}>
                 <Image source ={ require("../../assets/food_truck2.jpeg")} style = { styles.image } />
             </View>        

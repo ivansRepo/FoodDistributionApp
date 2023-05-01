@@ -2,7 +2,6 @@ import React, { useState,useRef } from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
 import * as Animatable from "react-native-animatable"
-import Swiper from "react-native-swiper";
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import HomeHeader from '../components/HomeHeader';
 
