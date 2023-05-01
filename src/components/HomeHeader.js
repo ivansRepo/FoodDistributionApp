@@ -1,8 +1,9 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import {View, Text, StyleSheet, Dimensions, Image} from 'react-native'
+import {View, Text, StyleSheet, Dimensions, Image, TouchableOpacity} from 'react-native'
 import { Icon } from "react-native-elements/dist/icons/Icon";
 import {colors,parameters} from "../global/styles"
+
 
 export default function HomeHeader({title,type,navigation}){
 
@@ -21,10 +22,13 @@ export default function HomeHeader({title,type,navigation}){
                 <Text style = {styles.headerText}>SansFaim</Text>
             </View>      
             <View style = {{align:"center", justifyContent:"center",marginLeft:15,flex:1}}>
-                <Image 
-                    style={{height:32, width:32, alignItems:"center", justifyContent:"center",marginLeft:15}}
-                    source ={require('../../assets/account.png')}
-                />
+                <TouchableOpacity onPress={()=>navigation.navigate("ProfileScreen")} style={styles.inputContainer}>
+                    <Image 
+                        style={{height:32, width:32, alignItems:"center", justifyContent:"center",marginLeft:15}}
+                        source ={require('../../assets/account.png')}
+                        />
+                </TouchableOpacity>
+                
             </View>
         </View>
     )

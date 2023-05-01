@@ -49,9 +49,7 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 0,
         width: "100%",
         resizeMode: 'cover',
-        height: "100%",
-        
-        
+        height: "100%",   
     },
     imageTextStyle: {  
         color: 'white',

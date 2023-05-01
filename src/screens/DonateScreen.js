@@ -4,8 +4,9 @@ import { Icon } from 'react-native-elements';
 import * as Animatable from "react-native-animatable"
 import Swiper from "react-native-swiper";
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import HomeHeader from '../components/HomeHeader';
 
-const DonateScreen = () => {
+const DonateScreen = ({navigation}) => {
   const [foodType, setFoodType] = useState('');
   const [foodName, setFoodName] = useState('');
   const [foodDescription, setFoodDescription] = useState('');
@@ -41,35 +42,16 @@ const DonateScreen = () => {
   
   return (
     <View style={styles.container}>
-
+        <HomeHeader navigation={navigation}/>
         <View style={{flex:1, marginBottom:15}}>
-            <View style ={{flex:6, justifyContent:"center", borderRadius: 20}}>
-                <Swiper autoplay ={true}>
-                    <View style={styles.slide1}>
-                        <Image 
-                            style={styles.imageSlide}
-                            source ={ require('../../assets/food_pack1.jpeg')}
-                        />
-                    </View>
-                    <View style={styles.slide2}>
-                        <Image 
-                            style={styles.imageSlide}
-                            source ={ require('../../assets/food_pack1.jpeg')}
-                        />
-                    </View>
-                    <View style={styles.slide3}>
-                        <Image 
-                            style={styles.imageSlide}
-                            source ={ require('../../assets/food_donation5.jpeg')}
-                        />
-                    </View>
-                    <View style={styles.slide3}>
-                        <Image 
-                            style={styles.imageSlide}
-                            source ={ require('../../assets/food_truck2.jpeg')}
-                        />
-                    </View>
-                </Swiper>
+            <View style ={{flex:6, justifyContent:"center", borderRadius: 20}}>    
+              <View style={styles.slide1}>
+                  <Image 
+                      style={styles.imageSlide}
+                      source ={ require('../../assets/food_pack1.jpeg')}
+                  />
+                  <Text style={styles.imageTextStyle}>Feed Homeless in Quatres Bornes</Text>
+              </View>  
             </View>
         </View>
 
@@ -153,26 +135,10 @@ const DonateScreen = () => {
       <View style={styles.inputContainer}>
 
       <Animatable.View animation ={textInput6Focussed?"":"fadeInRight"} duration={400}>
-        <Icon name='clock-time-four-outline' type='material-community' size={20} color='orange' style={{marginRight:10}} />
         </Animatable.View>
-        
-        <TextInput
-          style={styles.input}
-          placeholder='Pick-up time'
-          placeholderTextColor='gray'
-          value={pickupTime}
-          ref ={textInput6}
-                        onFocus ={()=>{
-                            setTextInput6Focussed(false)
-                        }}
-                        onBlur ={()=>{
-                            setTextInput6Focussed(true)
-                        }}
-          //onChangeText={(text) => setPickupTime(text)}
-        />
-        <TouchableOpacity onPress={showDatePicker} style={styles.inputContainer}>
+        <TouchableOpacity onPress={showDatePicker} style={{flexDirection:"row"}}>
         <Icon name='calendar-clock' type='material-community' color='#FFA500' />
-        <Text style={styles.label}>Pickup Time: {pickupTime ? pickupTime : 'Not selected'}</Text>
+        <Text style={{marginLeft:10}}>Pickup Time: {pickupTime ? pickupTime : 'Not selected'}</Text>
       </TouchableOpacity>
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
@@ -287,29 +253,23 @@ export default DonateScreen;
         alignItems:"center",
         backgroundColor: "#9DD6EB",
         borderBottomLeftRadius: 30,
-        borderBottomRightRadius: 30
-    },
-    slide2: {
-        flex:1,
-        justifyContent:"center",
-        alignItems:"center",
-        backgroundColor: "#9DD6EB",
-        borderBottomLeftRadius: 30,
-        borderBottomRightRadius: 30
-    },
-    slide3: {
-        flex:1,
-        justifyContent:"center",
-        alignItems:"center",
-        backgroundColor: "#9DD6EB",
-        borderBottomLeftRadius: 30,
-        borderBottomRightRadius: 30
+        borderBottomRightRadius: 30,
+        textAlign:"center"
     },
     imageSlide: {
         resizeMode: 'cover',
         height: "100%",
         width: "100%",
         borderBottomLeftRadius: 30,
-        borderBottomRightRadius: 30
-    }
+        borderBottomRightRadius: 30,
+        position:'absolute'
+    },
+    imageTextStyle: {  
+      color: 'white',
+      fontSize: 22,
+      fontWeight: 'bold',
+      marginTop:30,
+      lineHeight:30,
+      textAlign:"center"
+  },
   });

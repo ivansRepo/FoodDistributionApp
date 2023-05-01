@@ -5,10 +5,10 @@ import DonationCard from "../components/DonationCard";
 import StatisticCard from "../components/StatisticCard";
 import JoinUsCard from "../components/JoinUsCard";
 
-export default function HomeScreen(){
+export default function HomeScreen({navigation}){
     return (
         <ScrollView style ={styles.container}>
-            <HomeHeader />
+            <HomeHeader navigation={navigation}/>
             <View style={styles.textContainer}>
                 <Text style={styles.title}>Hello changemaker</Text>
                 <Text style={styles.description}>With just your food excess, you can share a meal with someone in need</Text>

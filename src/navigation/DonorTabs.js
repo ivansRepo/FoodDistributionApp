@@ -67,7 +67,6 @@ export default function RootDonorTabs(){
                                 size = {size}
                             />
                         )
-
                     }
                 }
             />

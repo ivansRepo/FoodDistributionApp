@@ -3,6 +3,7 @@ import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import SignInScreen from "../screens/authenticationScreen/SignInScreen";
 import WelcomeScreen from "../screens/authenticationScreen/WelcomeScreen";
 import RootDonorTabs from "./DonorTabs";
+import ProfileScreen from "../screens/profileScreen";
 
 const Authentication = createStackNavigator();
 
@@ -20,6 +21,14 @@ export default function AuthenticationStack(){
             <Authentication.Screen 
                 name ="SignInScreen"
                 component = {SignInScreen}
+                options = {{
+                    headerShown: false,
+                    ...TransitionPresets.RevealFromBottomAndroid
+                }}
+            />
+            <Authentication.Screen 
+                name ="ProfileScreen"
+                component = {ProfileScreen}
                 options = {{
                     headerShown: false,
                     ...TransitionPresets.RevealFromBottomAndroid
