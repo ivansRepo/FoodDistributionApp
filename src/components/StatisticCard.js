@@ -1,8 +1,6 @@
-import { Text, StyleSheet, View, Image, TouchableOpacity} from 'react-native';
-import { Card,IconButton, ProgressBar } from 'react-native-paper';
-import AppButton from './button';
-import { colors } from '../global/styles';
-import { Icon } from 'react-native-elements';
+import { Text, StyleSheet, View, Image} from 'react-native';
+import { Card } from 'react-native-paper';
+
 
 
 const StatisticCard = ({navigation}) => {

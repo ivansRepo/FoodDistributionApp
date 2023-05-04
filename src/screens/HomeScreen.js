@@ -23,7 +23,7 @@ export default function HomeScreen({navigation}){
             <StatisticCard navigation={navigation}/>
 
             <View style={{marginTop:40, marginBottom:40}}>
-                <JoinUsCard />
+                <JoinUsCard navigation={navigation}/>
             </View>
         </ScrollView>
     )

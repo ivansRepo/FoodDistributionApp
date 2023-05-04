@@ -5,7 +5,7 @@ import { colors } from '../global/styles';
 import { Icon } from 'react-native-elements';
 
 
-const JoinUsCard = () => {
+const JoinUsCard = ({navigation}) => {
 
     const progress = 0.6; // This is the progress value between 0 and 1
 
@@ -16,7 +16,7 @@ const JoinUsCard = () => {
             </View>        
             <View style={styles.cardContent}>
                 <Text style={styles.imageTextStyle}>Join SansFaim and deliver a meal to the homeless</Text>
-                <TouchableOpacity style={styles.styleButton} onPress={()=>{}}>
+                <TouchableOpacity style={styles.styleButton} onPress={()=>{navigation.navigate("JoinUsScreen")}}>
                     <Text style={styles.buttonTitle}>Join Us</Text>
                 </TouchableOpacity>
             </View>

@@ -65,16 +65,13 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 0,
         width: "100%",
         resizeMode: 'cover',
-        height: "100%",
-        
-        
+        height: "100%",    
     },
     imageTextStyle: {
         position: 'absolute',
         bottom: 0,
         left: 0,
         right: 0,
-        
         color: 'white',
         fontSize: 18,
         fontWeight: 'bold',
@@ -105,6 +102,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
       },
       statisticLabel: {
+        marginTop: 10,
         fontSize: 18,
         fontWeight: 'bold',
       },
@@ -113,5 +111,4 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'green',
       },
-
 });
