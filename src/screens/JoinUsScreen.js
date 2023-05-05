@@ -89,7 +89,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     color: 'gray',
     lineHeight: 24,
-
-
+  },
+  readMore: {
+    color: '#517fa4',
   },
 })

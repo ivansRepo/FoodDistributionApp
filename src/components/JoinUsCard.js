@@ -12,7 +12,7 @@ const JoinUsCard = ({navigation}) => {
     return(
         <Card style = { styles.card }>
             <View style={{height:300}}>
-                <Image source ={ require("../../assets/food_truck2.jpeg")} style = { styles.image } />
+                <Image source ={ require("../../assets/food_donation.jpeg")} style = { styles.image } />
             </View>        
             <View style={styles.cardContent}>
                 <Text style={styles.imageTextStyle}>Join SansFaim and deliver a meal to the homeless</Text>

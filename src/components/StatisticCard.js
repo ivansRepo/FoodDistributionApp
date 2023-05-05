@@ -8,7 +8,7 @@ const StatisticCard = ({navigation}) => {
     return(
         <Card onPress={()=>{navigation.navigate("StatisticScreen")}} style = { styles.card }>
             <View style={{height:250}}>
-                <Image source ={ require("../../assets/food_truck2.jpeg")} style = { styles.image } />
+                <Image source ={ require("../../assets/mauritius.jpg")} style = { styles.image } />
             </View>        
             <View style={styles.labelContainer}>
                 <View style={{flexDirection:"row", width:"100%",justifyContent:'space-between',marginBottom:10}}>

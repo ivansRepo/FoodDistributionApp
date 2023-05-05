@@ -12,7 +12,7 @@ export default function StatisticScreen({navigation}){
                     <View style={styles.slide1}>
                         <Image 
                             style={styles.imageSlide}
-                            source ={ require('../../assets/food_pack1.jpeg')}
+                            source ={ require('../../assets/mauritius2.jpg')}
                         />
                     </View>  
                 </View>
@@ -75,7 +75,5 @@ const styles = StyleSheet.create({
     marginTop: 10,
     color: 'gray',
     lineHeight: 24,
-
-
   },
 })
