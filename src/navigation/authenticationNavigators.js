@@ -7,6 +7,9 @@ import ProfileScreen from "../screens/profileScreen";
 import DonationDetailScreen from "../screens/DonationDetailScreen";
 import StatisticScreen from "../screens/StatisticScreen";
 import JoinUsScreen from "../screens/JoinUsScreen";
+import MauritiusMapScreen from "../screens/MauritiusMapScreen";
+
+
 
 const Authentication = createStackNavigator();
 
@@ -56,6 +59,15 @@ export default function AuthenticationStack(){
             <Authentication.Screen 
                 name ="JoinUsScreen"
                 component = {JoinUsScreen}
+                options = {{
+                    headerShown: false,
+                    ...TransitionPresets.RevealFromBottomAndroid
+                }}
+            />
+
+            <Authentication.Screen 
+                name ="MauritiusMapScreen"
+                component = {MauritiusMapScreen}
                 options = {{
                     headerShown: false,
                     ...TransitionPresets.RevealFromBottomAndroid

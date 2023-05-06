@@ -15,8 +15,12 @@ const StatisticCard = ({navigation}) => {
                     <Text style={styles.textLabel}>meals offered:</Text>
                     <Text style={styles.statsLabel}> + 334,187</Text>
                 </View>
-                <View style={{flexDirection:"row", width:"100%",justifyContent:'space-between',}}>
+                <View style={{flexDirection:"row", width:"100%",justifyContent:'space-between',marginBottom:10}}>
                     <Text style={styles.textLabel}>supporters:</Text>
+                    <Text style={styles.statsLabel}>+ 17, 418</Text>
+                </View>
+                <View style={{flexDirection:"row", width:"100%",justifyContent:'space-between',}}>
+                    <Text style={styles.textLabel}>food saved in Rs:</Text>
                     <Text style={styles.statsLabel}>+ 17, 418</Text>
                 </View>
             </View>                        

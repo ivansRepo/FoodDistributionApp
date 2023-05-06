@@ -1,11 +1,7 @@
-import { Text, StyleSheet, View, Image, TouchableOpacity} from 'react-native';
-import { Card,IconButton, ProgressBar } from 'react-native-paper';
-import AppButton from './button';
-import { colors } from '../global/styles';
-import { Icon } from 'react-native-elements';
+import { Text, StyleSheet, View, Image} from 'react-native';
+import { Card} from 'react-native-paper';
 
-
-const MyDonationListCard = () => {
+const MyDonationListCard = ({foodName,location,quantity,date}) => {
 
     return(
         <Card style = { styles.card }>
@@ -14,9 +10,9 @@ const MyDonationListCard = () => {
                     <Image source ={ require("../../assets/food_truck2.jpeg")} style = { styles.image } />
                 </View>
                 <View style={styles.foodInformation}>
-                    <Text style={{fontWeight: 'bold',fontSize: 18,marginBottom: 6}}>FoodTitle</Text>
-                    <Text style={{fontWeight: 300,fontSize: 13,color:"gray",marginBottom: 4}}>FoodLocation</Text>
-                    <Text style={{fontWeight: 300,fontSize: 13,color:"gray",marginBottom: 4}}>Quantity</Text>
+                    <Text style={{fontWeight: 'bold',fontSize: 18,marginBottom: 6}}>{foodName}</Text>
+                    <Text style={{fontWeight: 300,fontSize: 13,color:"gray",marginBottom: 4}}>{location}</Text>
+                    <Text style={{fontWeight: 300,fontSize: 13,color:"gray",marginBottom: 4}}>{quantity}</Text>
                     <Text style={{fontWeight: 300,fontSize: 13,color:"gray"}}>Date</Text>
                 </View>                
             </View>

@@ -1,18 +1,18 @@
-import { Text, StyleSheet, View, Image, TouchableOpacity} from 'react-native';
-import { Card,IconButton, ProgressBar } from 'react-native-paper';
+import { Text, StyleSheet, View, Image} from 'react-native';
+import { Card, ProgressBar } from 'react-native-paper';
 import AppButton from './button';
 import { colors } from '../global/styles';
 import { Icon } from 'react-native-elements';
 
 
-const DonationCard = ({navigation}) => {
+const DonationCard = ({navigation,image,meal,supporter,location,screenWidth}) => {
 
     const progress = 0.6; // This is the progress value between 0 and 1
 
     return(
-        <Card onPress={()=>{navigation.navigate("DonationDetailScreen")}} style = { styles.card }>
-            <View style={{height:200}}>
-                <Image source ={ require("../../assets/food_truck2.jpeg")} style = { styles.image } />
+        <Card onPress={()=>{navigation.navigate("DonationDetailScreen")}} style = {{...styles.card }}>
+            <View style={{height:200}}> 
+                <Image source ={image} style = { styles.image } />
             </View>        
             <View style={styles.iconStyle} >
                 <Icon
@@ -24,14 +24,17 @@ const DonationCard = ({navigation}) => {
                 />
             </View>
             <View >
-                <Text style={styles.imageTextStyle}>Feed Homeless in Quatre-Bornes</Text>
+                <Text style={styles.imageTextStyle}>Feed the homeless in {location}</Text>
             </View>
             <View style={styles.labelContainer}>
-                <Text style={styles.statisticLabel}>Total Donations:</Text>
+                <Text style={styles.statisticLabel}>Total Donations: {meal}</Text>
                 <Text style={styles.percentageLabel}>{progress * 100}%</Text>
             </View>
             <View style= {{alignItems: 'center',justifyContent: 'center',padding: 10}}>
                 <ProgressBar progress={progress} color={colors.buttons} style={styles.progressBar} />
+            </View>
+            <View style={{marginLeft:20, fontWeight:600}}>
+                <Text style={{fontWeight:600}}>{supporter} supporters</Text>
             </View>
             
             <AppButton text= "Donate Now"/>
@@ -44,15 +47,17 @@ export default DonationCard;
 
 const styles = StyleSheet.create({
     card: {
-        marginLeft: 20,
-        marginRight: 20,
+        //marginLeft: 20,
+        //marginRight: 20,
         backgroundColor: 'white',
         borderRadius: 10,
         shadowColor: 'black',
         overflow: 'hidden',
         paddingBottom:25, 
+        marginLeft:10,
+        marginRight:10,
         shadowOffset: {
-        width: 0,      
+        width: 30,      
         },
         shadowOpacity: 0.25,
         shadowRadius: 5,
@@ -98,16 +103,16 @@ const styles = StyleSheet.create({
       },
       progressBar: {
         width: 300,
-        height: 20,
+        height: 12,
         borderRadius: 10,
       },
       statisticLabel: {
         marginTop: 10,
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold',
       },
       percentageLabel: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold',
         color: 'green',
       },

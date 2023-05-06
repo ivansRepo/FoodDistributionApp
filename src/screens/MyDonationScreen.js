@@ -1,14 +1,15 @@
 import React from 'react'
-import {View, Text, StyleSheet,Image} from 'react-native'
+import {View, ScrollView, Text, StyleSheet,Image, FlatList} from 'react-native'
 import MyDonationListCard from '../components/MyDonationListCard'
 import { Card} from 'react-native-paper';
 import HomeHeader from '../components/HomeHeader';
+import { foodData } from '../components/Data';
 
 
 export default function MyDonationScreen({navigation}){
 
     return(
-        <View>
+        <ScrollView>
             <HomeHeader navigation={navigation}/>
             <View style={styles.textContainer}>
                 <Text style={styles.title}>My Donation List</Text>
@@ -17,18 +18,54 @@ export default function MyDonationScreen({navigation}){
 
             <Card style = { styles.card }>
             <View style={{height:300}}>
-                <Image source ={ require("../../assets/food_truck2.jpeg")} style = { styles.image } />
-                
             </View>        
             <View style={styles.cardContent}>
-                <Text style={styles.imageTextStyle}>Join SansFaim and deliver a meal to the homeless</Text>
+                <View style={{flexDirection:"row", justifyContent:"space-between", marginHorizontal:20}}>
+                    <View style={{justifyContent:"center", alignItems:"center"}}>
+                        <Image style={styles.imageSpoon} source ={ require("../../assets/spoonnfork.png")} />
+                        <Text style={{textAlign:"center",marginTop:10, fontWeight:800, color:"white"}}>900 000</Text>
+                        <Text style={{fontWeight:500, fontSize:12}}>KGs of food saved</Text>
+                    </View>
+                    <View style={{justifyContent:"center", alignItems:"center"}}>
+                        <Image style={styles.bowl} source ={ require("../../assets/bowl.png")} />
+                        <Text style={{textAlign:"center",marginTop:10, fontWeight:800, color:"white"}}>300 000</Text>
+                        <Text style={{fontWeight:500, fontSize:12}}>Meals redistributed</Text>
+                    </View>
+                </View>
+                <View style={{flexDirection:"row", justifyContent:"space-between", marginHorizontal:20}}>
+                    <View style={{justifyContent:"center", alignItems:"center"}}>
+                        <Image style={styles.imageSpoon} source ={ require("../../assets/rs.png")} />
+                        <Text style={{textAlign:"center",marginTop:10, fontWeight:800, color:"white"}}>Rs 3</Text>
+                        <Text style={{fontWeight:500, fontSize:12}}>Per meal</Text>
+                    </View>
+                    <View style={{justifyContent:"center", alignItems:"center"}}>
+                        <Image style={styles.bowl} source ={ require("../../assets/apple.png")} />
+                        <Text style={{textAlign:"center",marginTop:10, fontWeight:800, color:"white"}}>300 000</Text>
+                        <Text style={{fontWeight:500, fontSize:12}}>In value of food saved</Text>
+                    </View>
+                </View>
+                
             </View>
         </Card>
 
-            <View>   
-                < MyDonationListCard />
+            <View>
+            <FlatList
+                scrollEnabled={false}
+                horizontal = {false}
+                data={foodData}
+                keyExtractor={item => item.id}
+                renderItem={({item})=>(
+                <View style={{marginBottom:10}}>   
+                    < MyDonationListCard
+                    foodName={item.foodName}
+                    location={item.location}
+                    quantity={item.meals} 
+                    />
+                </View> 
+            )} 
+            />
             </View>
-        </View>
+        </ScrollView>
     )
 }
 
@@ -53,7 +90,7 @@ const styles = StyleSheet.create({
       card: {
         marginLeft: 20,
         marginRight: 20,
-        backgroundColor: 'white',
+        backgroundColor: "#9DD6EB",
         borderRadius: 10,
         shadowColor: 'black',
         overflow: 'hidden',
@@ -65,6 +102,13 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 5,
         elevation: 5,
+    },
+    cardContent:{
+        position: 'absolute',
+        bottom: 30,
+        left: 0,
+        right: 0,   
+        marginHorizontal:30,
     },
     image: {
         padding:0,
@@ -84,11 +128,7 @@ const styles = StyleSheet.create({
         paddingRight:40,
         lineHeight:30
     },
-    cardContent:{
-        position: 'absolute',
-        bottom: 125,
-        left: 0,
-        right: 0,   
-        marginHorizontal:30,
-    }
+    imageSpoon:{
+    },
+   
 })
