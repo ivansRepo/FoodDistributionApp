@@ -1,48 +1,89 @@
-import React, { useState,useRef } from 'react';
-import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { Icon } from 'react-native-elements';
+import React, { useState} from 'react';
+import { ScrollView,View, Text, TextInput, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { Icon, Input,Slider } from 'react-native-elements';
 import * as Animatable from "react-native-animatable"
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { RadioButton } from 'react-native-paper';
+import moment from 'moment';
 import HomeHeader from '../components/HomeHeader';
+import AppButton from '../components/button';
+import { colors } from '../global/styles';
 
 const DonateScreen = ({navigation}) => {
-  const [foodType, setFoodType] = useState('');
-  const [foodName, setFoodName] = useState('');
-  const [foodDescription, setFoodDescription] = useState('');
-  const [foodQuantity, setFoodQuantity] = useState('');
-  const [pickupTime, setPickupTime] = useState('');
-  const [location, setLocation] = useState('');
   
-  const[textInput1Focussed, setTextInput1Focussed] = useState(false)
-  const[textInput2Focussed, setTextInput2Focussed] = useState(false)
-  const[textInput3Focussed, setTextInput3Focussed] = useState(false)
-  const[textInput5Focussed, setTextInput5Focussed] = useState(false)
-  const[textInput6Focussed, setTextInput6Focussed] = useState(false)
-  const[textInput7Focussed, setTextInput7Focussed] = useState(false)
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+      //veg, non-veg
+      const [selectedOption, setSelectedOption] = useState('vegetarian');
 
-    const textInput1 = useRef(1)
-    const textInput2 = useRef(2)
-    const textInput3 = useRef(3)
-    const textInput5 = useRef(5)
-    const textInput6 = useRef(6)
-    const textInput7 = useRef(7)
-    const showDatePicker = () => {
-        setDatePickerVisibility(true);
+      const handleOptionChange = (value) => {
+        setSelectedOption(value);
+      };
+
+      //date
+      const [selectedDate, setSelectedDate] = useState('');
+      const [isDatePickerVisible, setDatePickerVisible] = useState(false);
+
+      const showDatePicker = () => {
+        setDatePickerVisible(true);
+      };
+
+      const hideDatePicker = () => {
+        setDatePickerVisible(false);
+      };
+
+      const handleConfirm = (date) => {
+        setSelectedDate(moment(date).format('YYYY-MM-DD'));
+        hideDatePicker();
+      };
+
+      //time
+      const [selectedTime, setSelectedTime] = useState('');
+      const [isTimePickerVisible, setTimePickerVisible] = useState(false);
+
+      const showTimePicker = () => {
+        setTimePickerVisible(true);
+      };
+
+      const hideTimePicker = () => {
+        setTimePickerVisible(false);
+      };
+
+      const handleTimeConfirm = (time) => {
+        setSelectedTime(moment(time).format('h:mm A'));
+        hideTimePicker();
+      };
+
+      //slider
+        const [mealCount, setMealCount] = useState(0);
+      
+        const handleSliderChange = (value) => {
+          setMealCount(value);
+        };
+      
+      //input
+      const [name, setName] = useState('');
+      const [descriptionName, setdescriptionName] = useState('');
+      const [foodDescription, setFoodDescriptionFocused] = useState('');
+      const [password, setPassword] = useState('');
+      const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+
+      //input focus
+      const handleFoodDescriptionFocus = () => {
+        setFoodDescriptionFocused(true);
+      };
+
+      const handlePasswordFocus = () => {
+        setIsPasswordFocused(true);
       };
     
-      const hideDatePicker = () => {
-        setDatePickerVisibility(false);
-      };
-      const handleConfirm = (date) => {
-        hideDatePicker();
-        setPickupTime(date.toLocaleString());
+      const handlePasswordBlur = () => {
+        setIsPasswordFocused(false);
       };
   
   return (
-    <View style={styles.container}>
+    <View style={{flex:1}}>
+    <ScrollView style={styles.container}>
         <HomeHeader navigation={navigation}/>
-        <View style={{flex:1, marginBottom:15}}>
+        <View style={styles.ImageContainer}>
             <View style ={{flex:6, justifyContent:"center", borderRadius: 20}}>    
               <View style={styles.slide1}>
                   <Image 
@@ -54,124 +95,202 @@ const DonateScreen = ({navigation}) => {
             </View>
         </View>
 
-      <View style={styles.inputContainer}>
-      <Animatable.View animation ={textInput1Focussed?"":"fadeInRight"} duration={400}>
-        <Icon name='food' type='material-community' size={20} color='orange' style={{marginRight:10}} />
-        </Animatable.View>
-        <TextInput
-          style={styles.input}
-          placeholder='Food type'
-          placeholderTextColor='gray'
-          value={foodType}
-          ref ={textInput1}
-                        onFocus ={()=>{
-                            setTextInput1Focussed(false)
-                        }}
-                        onBlur ={()=>{
-                            setTextInput1Focussed(true)
-                        }}
-          //onChangeText={(text) => setFoodType(text)}
-        />
-      </View>
-      <View style={styles.inputContainer}>
-      <Animatable.View animation ={textInput2Focussed?"":"fadeInRight"} duration={400}>
-        <Icon name='food-variant' type='material-community' size={20} color='orange' style={{marginRight:10}} />
-        </Animatable.View>
-        <TextInput
-          style={styles.input}
-          placeholder='Food name'
-          placeholderTextColor='gray'
-          value={foodName}
-          ref ={textInput2}
-                        onFocus ={()=>{
-                            setTextInput2Focussed(false)
-                        }}
-                        onBlur ={()=>{
-                            setTextInput2Focussed(true)
-                        }}
-          //onChangeText={(text) => setFoodName(text)}
-        />
-      </View>
-      <View style={styles.inputContainer}>
-      <Animatable.View animation ={textInput3Focussed?"":"fadeInRight"} duration={400}>
-        <Icon name='note-text-outline' type='material-community' size={20} color='orange' style={{marginRight:10}} />
-        </Animatable.View>
-        <TextInput
-          style={styles.input}
-          placeholder='Food description'
-          placeholderTextColor='gray'
-          value={foodDescription}
-          ref ={textInput3}
-                        onFocus ={()=>{
-                            setTextInput3Focussed(false)
-                        }}
-                        onBlur ={()=>{
-                            setTextInput3Focussed(true)
-                        }}
-          onChangeText={(text) => setFoodDescription(text)}
-        />
-      </View>
-      <View style={styles.inputContainer}>
-      <Animatable.View animation ={textInput5Focussed?"":"fadeInRight"} duration={400}>
-        <Icon name='weight' type='material-community' size={20} color='orange' style={{marginRight:10}}/>
-        </Animatable.View>
-        <TextInput
-          style={styles.input}
-          placeholder='Quantity'
-          placeholderTextColor='gray'
-          value={foodQuantity}
-          ref ={textInput5}
-                        onFocus ={()=>{
-                            setTextInput5Focussed(false)
-                        }}
-                        onBlur ={()=>{
-                            setTextInput5Focussed(true)
-                        }}
-          //onChangeText={(text) => setFoodQuantity(text)}
-          keyboardType='numeric'
-        />
-      </View>
-      <View style={styles.inputContainer}>
+      {/* Donation Title*/}
 
-      <Animatable.View animation ={textInput6Focussed?"":"fadeInRight"} duration={400}>
-        </Animatable.View>
-        <TouchableOpacity onPress={showDatePicker} style={{flexDirection:"row"}}>
-        <Icon name='calendar-clock' type='material-community' color='#FFA500' />
-        <Text style={{marginLeft:10}}>Pickup Time: {pickupTime ? pickupTime : 'Not selected'}</Text>
-      </TouchableOpacity>
+      <View style={{marginLeft:20}}>
+          <Text style={styles.donationTitle}>Donation Info</Text>
+      </View>
+
+      {/* veg_non-veg*/}
+      <View style={{alignItems:'center'}}>
+        <RadioButton.Group onValueChange={handleOptionChange} value={selectedOption}>
+          <View style={{flexDirection:'row'}}>
+            <View style={styles.radioContainer}>
+              <RadioButton.Item
+                label="Veg"
+                value="vegetarian"
+                labelStyle={styles.radioButtonLabel}
+                color="#fbb968"
+                uncheckedColor="#757575"
+              />
+            </View>
+            <View style={styles.radioContainer}>
+              <RadioButton.Item
+                label="Non-Veg"
+                value="non-vegetarian"
+                labelStyle={styles.radioButtonLabel}
+                color="#fbb968"
+                uncheckedColor="#757575"
+              />
+            </View>
+          </View>
+        </RadioButton.Group>
+      </View>
+
+      {/* Textinput*/}
+      <View style={{marginTop: 40,marginHorizontal:40 }}>
+        <View style={{ marginBottom: 0 }}>
+          <Input
+            label='Food Name'
+            placeholder='Your food name'
+            value={name}
+            onChangeText={setName}
+            leftIcon={
+              <Icon
+                name='restaurant'
+                type='material'
+                color='#517fa4'
+              />
+            }
+          />
+        </View>
+
+        <View style={{ marginBottom: 0 }}>
+          <Input
+            label='Food Description'
+            placeholder='Your food description'
+            value={descriptionName}
+            onChangeText={setdescriptionName}
+            
+            leftIcon={
+              <Icon
+                name='description'
+                type='material'
+                color='#517fa4'
+              />
+            }
+            multiline
+            numberOfLines={4}
+            containerStyle={{ paddingHorizontal: 0 }}
+            inputStyle={{ borderWidth: 0, fontSize: 16, minHeight:50 }}
+            inputContainerStyle={{
+              
+              marginHorizontal: 10,
+              paddingHorizontal: 0
+            }}
+          />
+        </View>
+        
+        {/**Slider Meal Amount*/}
+        <View style={{marginVertical:10}}>
+          <Text style={styles.label}>Number of Meals to Donate: {mealCount}</Text>
+          <Slider
+            value={mealCount}
+            minimumValue={1}
+            maximumValue={500}
+            step={1}
+            onValueChange={handleSliderChange}
+            thumbStyle={styles.thumbStyle}
+            trackStyle={styles.trackStyle}
+            thumbTintColor='#517fa4'
+            minimumTrackTintColor='#517fa4'
+            maximumTrackTintColor='#d3d3d3'
+          />
+        </View>
+
+        <View style={{ marginBottom: 0}}>
+          <Input
+            label='Location'
+            placeholder='Your location'
+            value={password}
+            onFocus={handlePasswordFocus}
+            onBlur={handlePasswordBlur}
+            secureTextEntry={true}
+            leftIcon={
+              <Icon
+                name='location-on'
+                type='material'
+                color='#517fa4'
+              />
+            }
+            multiline
+            numberOfLines={4}
+            containerStyle={{ paddingHorizontal: 0 }}
+            inputStyle={{ borderWidth: 0, fontSize: 16}}
+            inputContainerStyle={{
+              borderBottomWidth: isPasswordFocused ? 2 : 1,
+              borderBottomColor: isPasswordFocused ? '#4a4a4a' : '#e0e0e0',
+              marginHorizontal: 10,
+              paddingHorizontal: 0
+            }}
+          />
+        </View>
+        
+        <View style={styles.container}>
+        <TouchableOpacity onPress={showDatePicker} style={styles.inputContainer}>
+          <Input
+            label='Date'
+            placeholder='Select a date'
+            value={selectedDate}
+            leftIcon={
+              <Icon
+                name='event'
+                type='material'
+                color='#517fa4'
+              />
+            }
+            containerStyle={styles.inputContainerStyle}
+            inputStyle={styles.input}
+            disabled={true}
+          />
+        </TouchableOpacity>
+
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
-        mode='datetime'
+        mode="date"
         onConfirm={handleConfirm}
         onCancel={hideDatePicker}
       />
-      </View>
-      <View style={styles.inputContainer}>
-      <Animatable.View animation ={textInput7Focussed?"":"fadeInRight"} duration={400}>
-        <Icon name='navigation' type='material-community' size={20} color='orange' style={{marginRight:10}}/>
-        </Animatable.View>
-        <TextInput
-          style={styles.input}
-          placeholder='Location'
-          placeholderTextColor='gray'
-          value={location}
-          ref ={textInput7}
-                        onFocus ={()=>{
-                            setTextInput7Focussed(false)
-                        }}
-                        onBlur ={()=>{
-                            setTextInput7Focussed(true)
-                        }}
-          //onChangeText={(text) => setLocation(text)}
+    </View>
+
+    <View>
+      <TouchableOpacity onPress={showTimePicker} style={styles.inputContainer}>
+        <Input
+          label='Time'
+          placeholder='Select a time'
+          value={selectedTime}
+          leftIcon={
+            <Icon
+              name='clock-o'
+              type='font-awesome'
+              color='#517fa4'
+            />
+          }
+          containerStyle={styles.inputContainerStyle}
+          inputStyle={styles.input}
+          disabled={true}
         />
+      </TouchableOpacity>
+
+      <DateTimePickerModal
+        isVisible={isTimePickerVisible}
+        mode="time"
+        onConfirm={handleTimeConfirm}
+        onCancel={hideTimePicker}
+      />
+    </View>
       </View>
-      <Text style={styles.imageText}>Add up to 10 pictures of the food</Text>
-      <View style={styles.imageContainer}>
-        <TouchableOpacity style={styles.imageBox}>
-          <Icon name='camera' type='material-community' size={30} color='orange' />
-          <Text style={styles.imageBoxText}>Add photo</Text>
-        </TouchableOpacity>
+      
+      <View style={{marginTop:10, marginBottom:25, marginHorizontal:20}}>
+        <AppButton text={"Add to GiveList"} />
       </View>
+
+      </ScrollView>
+      <View style={styles.floatingButton}>
+            <TouchableOpacity
+                onPress={()=>{
+                    navigation.navigate("MauritiusMapScreen")
+                }}
+                >
+                <Icon
+                    name="hand-holding-heart"
+                    type="font-awesome-5"
+                    size={32}
+                    color = {colors.buttons}
+                />
+                <Text style ={{color:colors.grey2}}>givelist</Text>
+            </TouchableOpacity>
+        </View>          
       </View>
   );
 };
@@ -189,68 +308,19 @@ export default DonateScreen;
       marginVertical: 20,
       marginHorizontal: 20,
     },
-    formContainer: {
-      marginHorizontal: 20,
-    },
-    inputContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      borderBottomWidth: 1,
-      borderColor: '#ccc',
-      marginVertical: 10,
-      borderWidth:1,
-        borderColor:"#86939e",
-        marginHorizontal:20,
-        marginBottom:20,
-        borderRadius:12,
-        paddingLeft:15,
-        height: 40
-    },
-    inputIcon: {
-      marginHorizontal: 10,
-    },
-    input: {
-      flex: 1,
-      height: 40,
-      color: '#000',
-    },
-    textareaContainer: {
-      borderWidth: 1,
-      borderColor: '#ccc',
-      padding: 5,
-      marginVertical: 10,
-    },
-    textarea: {
-      height: 100,
-      textAlignVertical: 'top',
-      color: '#000',
-    },
-    imageContainer: {
-      marginVertical: 10,
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-    },
-    locationContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      borderBottomWidth: 1,
-      borderColor: '#ccc',
-      marginVertical: 10,
-    },
-    locationIcon: {
-      marginHorizontal: 10,
-    },
-    locationText: {
-      flex: 1,
-      height: 40,
-      color: '#000',
-    },
 
+    ImageContainer:{
+      flex:1,
+      marginBottom:15,
+      height:180,
+      paddingHorizontal:30,
+      marginTop:30,
+    },
+      
     slide1: {
         flex:1,
         justifyContent:"center",
         alignItems:"center",
-        backgroundColor: "#9DD6EB",
         borderBottomLeftRadius: 30,
         borderBottomRightRadius: 30,
         textAlign:"center"
@@ -259,8 +329,7 @@ export default DonateScreen;
         resizeMode: 'cover',
         height: "100%",
         width: "100%",
-        borderBottomLeftRadius: 30,
-        borderBottomRightRadius: 30,
+        borderRadius:30,
         position:'absolute'
     },
     imageTextStyle: {  
@@ -271,4 +340,55 @@ export default DonateScreen;
       lineHeight:30,
       textAlign:"center"
   },
+
+  radioContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  radioButtonLabel: {
+    fontSize: 14,
+    marginLeft: 10,
+    fontWeight:700
+
+  },
+
+  donationTitle:{
+    fontSize: 24,
+      fontWeight: 'bold',
+      marginVertical: 20,
+      marginHorizontal: 20,
+      color:'#f3921d',
+  },
+
+  thumbStyle: {
+    width: 20,
+    height: 20,
+    backgroundColor: '#fff',
+    borderWidth: 2,
+    borderColor: '#517fa4',
+    borderRadius: 10,
+  },
+  trackStyle: {
+    height: 5,
+    borderRadius: 2.5,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color:'#83939f'
+  },
+  floatingButton: {
+    position:"absolute",
+    bottom:25,
+    right:15,
+    backgroundColor:"white",
+    elevation:10,
+    width:60,
+    height:60,
+    borderRadius:30,
+    alignItems:"center"
+  }
+  
+
   });

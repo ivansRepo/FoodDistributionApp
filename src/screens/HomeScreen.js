@@ -33,15 +33,12 @@ export default function HomeScreen({navigation}){
                         meal={item.meals}
                         location= {item.location}
                         supporter={item.supporter}
-
                     />
                 </View>
             )   
             }
-
             /> 
             
-
             <View style={styles.textContainer}>
                 <Text style={{fontSize:22,fontWeight: 'bold'}}>Together, we can end hunger amongst homeless</Text>
             </View>
