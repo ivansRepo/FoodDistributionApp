@@ -8,6 +8,8 @@ import DonationDetailScreen from "../screens/DonationDetailScreen";
 import StatisticScreen from "../screens/StatisticScreen";
 import JoinUsScreen from "../screens/JoinUsScreen";
 import MauritiusMapScreen from "../screens/MauritiusMapScreen";
+import GiveListScreen from "../screens/GiveListScreen";
+import SignUpScreen from "../screens/authenticationScreen/SignUpScreen";
 
 
 
@@ -27,6 +29,14 @@ export default function AuthenticationStack(){
             <Authentication.Screen 
                 name ="SignInScreen"
                 component = {SignInScreen}
+                options = {{
+                    headerShown: false,
+                    ...TransitionPresets.RevealFromBottomAndroid
+                }}
+            />
+            <Authentication.Screen 
+                name ="SignUpScreen"
+                component = {SignUpScreen}
                 options = {{
                     headerShown: false,
                     ...TransitionPresets.RevealFromBottomAndroid
@@ -68,6 +78,14 @@ export default function AuthenticationStack(){
             <Authentication.Screen 
                 name ="MauritiusMapScreen"
                 component = {MauritiusMapScreen}
+                options = {{
+                    headerShown: false,
+                    ...TransitionPresets.RevealFromBottomAndroid
+                }}
+            />
+            <Authentication.Screen 
+                name ="GiveListScreen"
+                component = {GiveListScreen}
                 options = {{
                     headerShown: false,
                     ...TransitionPresets.RevealFromBottomAndroid

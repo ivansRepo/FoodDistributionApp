@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "186025162026",
+    "project_id": "homelessfooddonation",
+    "storage_bucket": "homelessfooddonation.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186025162026:android:818fa7fa8bacfe436eda53",
+        "android_client_info": {
+          "package_name": "com.HomelessFoodDonationApp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKvUiGmw2dZnHRKt9UD3B0bak2UUrd4aM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

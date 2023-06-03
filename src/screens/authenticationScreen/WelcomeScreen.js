@@ -55,7 +55,7 @@ export default function WelcomeScreen({navigation}){
                     <AppButton text="Sign In" onClick= {()=>navigation.navigate("SignInScreen")}/>
                 </View>
                 <View style={{marginTop:60}}>
-                    <AppButton text="Register"/>
+                    <AppButton text="Register" onClick={()=>navigation.navigate("SignUpScreen")}/>
                 </View>
             </View>
             

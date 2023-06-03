@@ -1,16 +1,16 @@
 import React, { useState} from 'react';
 import { ScrollView,View, Text, TextInput, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { Icon, Input,Slider } from 'react-native-elements';
-import * as Animatable from "react-native-animatable"
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { RadioButton } from 'react-native-paper';
 import moment from 'moment';
 import HomeHeader from '../components/HomeHeader';
 import AppButton from '../components/button';
 import { colors } from '../global/styles';
+import { AddGiveList } from '../database/create';
 
 const DonateScreen = ({navigation}) => {
-  
+
       //veg, non-veg
       const [selectedOption, setSelectedOption] = useState('vegetarian');
 
@@ -60,9 +60,9 @@ const DonateScreen = ({navigation}) => {
         };
       
       //input
-      const [name, setName] = useState('');
+      const [foodName, setFoodName] = useState('');
       const [descriptionName, setdescriptionName] = useState('');
-      const [foodDescription, setFoodDescriptionFocused] = useState('');
+      const [location, setLocation] = useState('');
       const [password, setPassword] = useState('');
       const [isPasswordFocused, setIsPasswordFocused] = useState(false);
 
@@ -78,6 +78,13 @@ const DonateScreen = ({navigation}) => {
       const handlePasswordBlur = () => {
         setIsPasswordFocused(false);
       };
+
+      function addToGivelistFunction() {
+        // Implement your logic to add to Givelist
+        console.log('Adding to Givelist...');
+        AddGiveList(selectedDate,descriptionName,"foodDonor" ,foodName,location,mealCount,selectedTime,selectedOption)
+      }
+      
   
   return (
     <View style={{flex:1}}>
@@ -108,7 +115,7 @@ const DonateScreen = ({navigation}) => {
             <View style={styles.radioContainer}>
               <RadioButton.Item
                 label="Veg"
-                value="vegetarian"
+                value={true}
                 labelStyle={styles.radioButtonLabel}
                 color="#fbb968"
                 uncheckedColor="#757575"
@@ -117,7 +124,7 @@ const DonateScreen = ({navigation}) => {
             <View style={styles.radioContainer}>
               <RadioButton.Item
                 label="Non-Veg"
-                value="non-vegetarian"
+                value={false}
                 labelStyle={styles.radioButtonLabel}
                 color="#fbb968"
                 uncheckedColor="#757575"
@@ -133,8 +140,8 @@ const DonateScreen = ({navigation}) => {
           <Input
             label='Food Name'
             placeholder='Your food name'
-            value={name}
-            onChangeText={setName}
+            value={foodName}
+            onChangeText={setFoodName}
             leftIcon={
               <Icon
                 name='restaurant'
@@ -151,7 +158,7 @@ const DonateScreen = ({navigation}) => {
             placeholder='Your food description'
             value={descriptionName}
             onChangeText={setdescriptionName}
-            
+        
             leftIcon={
               <Icon
                 name='description'
@@ -189,12 +196,12 @@ const DonateScreen = ({navigation}) => {
         </View>
 
         <View style={{ marginBottom: 0}}>
+
           <Input
             label='Location'
             placeholder='Your location'
-            value={password}
-            onFocus={handlePasswordFocus}
-            onBlur={handlePasswordBlur}
+            value={location}
+            onChangeText={setLocation}
             secureTextEntry={true}
             leftIcon={
               <Icon
@@ -208,8 +215,6 @@ const DonateScreen = ({navigation}) => {
             containerStyle={{ paddingHorizontal: 0 }}
             inputStyle={{ borderWidth: 0, fontSize: 16}}
             inputContainerStyle={{
-              borderBottomWidth: isPasswordFocused ? 2 : 1,
-              borderBottomColor: isPasswordFocused ? '#4a4a4a' : '#e0e0e0',
               marginHorizontal: 10,
               paddingHorizontal: 0
             }}
@@ -272,20 +277,20 @@ const DonateScreen = ({navigation}) => {
       </View>
       
       <View style={{marginTop:10, marginBottom:25, marginHorizontal:20}}>
-        <AppButton text={"Add to GiveList"} />
+        <AppButton text={"Add to GiveList"} onClick={addToGivelistFunction} />
       </View>
 
       </ScrollView>
       <View style={styles.floatingButton}>
             <TouchableOpacity
                 onPress={()=>{
-                    navigation.navigate("MauritiusMapScreen")
+                    navigation.navigate('GiveListScreen')
                 }}
                 >
                 <Icon
                     name="hand-holding-heart"
                     type="font-awesome-5"
-                    size={32}
+                    size={30}
                     color = {colors.buttons}
                 />
                 <Text style ={{color:colors.grey2}}>givelist</Text>
@@ -391,4 +396,6 @@ export default DonateScreen;
   }
   
 
-  });
+  },
+  
+  );
