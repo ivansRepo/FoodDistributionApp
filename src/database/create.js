@@ -1,5 +1,7 @@
 import { setDoc, doc, getDoc, addDoc, collection } from "firebase/firestore";
 import { db } from "../firebaseConfig";
+import { queryForFoodStore, queryForGiveList } from "./crud";
+import { useState , useEffect} from 'react';
 
 
 //
@@ -75,3 +77,71 @@ export async function AddGiveList(date,desc,foodDonor,foodName,loc,quantity,time
     console.log(`Your doc was created at ${newDonation.path}`);
     console.log(`Your doc id ia ${newDonation.id}`);
 }
+
+// ADD GiveList To Donation
+export async function AddGiveListToDonation(){
+
+    const arrayGiveList = queryForGiveList()
+    const donationCollection = collection(db,'Donation')//reference
+
+    await arrayGiveList.forEach(snap => {
+        
+        const newDonation = addDoc(donationCollection,{
+            date:snap.date,
+            description:snap.description,
+            foodDonor:snap.foodDonor,
+            foodName:snap.foodName,
+            location:snap.location,
+            quantity:snap.quantity,
+            time:snaptime,
+            veg:snap.veg,
+            id : snap.id
+        });
+    });
+    console.log(`Your doc was created at ${newDonation.path}`);
+    console.log(`Your doc id ia ${newDonation.id}`);
+}
+
+  export async function AddDonationToFoodStore2() {
+    const arrayGiveList = await queryForGiveList(); // Await the queryForGiveList() function
+    const donationCollection = collection(db, 'FoodStore'); // Reference
+  
+    arrayGiveList.forEach(async (snap) => {
+      const newDonation = await addDoc(donationCollection, {
+        date: snap.date,
+        description: snap.description,
+        foodDonor: snap.foodDonor,
+        foodName: snap.foodName,
+        location: snap.location,
+        quantity: snap.quantity,
+        time: snap.time, // Corrected variable name
+        veg: snap.veg,
+        id: snap.id,
+      });
+      console.log(`Your doc was created at ${newDonation.path}`);
+      console.log(`Your doc id is ${newDonation.id}`);
+      console.log(`successfully added to donation`);
+    });
+  }
+
+  export async function AddGiveListToDonation1() {
+    const arrayGiveList = await queryForGiveList(); // Await the queryForGiveList() function
+    const donationCollection = collection(db, 'Donation'); // Reference
+  
+    arrayGiveList.forEach(async (snap) => {
+      const newDonation = await addDoc(donationCollection, {
+        date: snap.date,
+        description: snap.description,
+        foodDonor: snap.foodDonor,
+        foodName: snap.foodName,
+        location: snap.location,
+        quantity: snap.quantity,
+        time: snap.time, // Corrected variable name
+        veg: snap.veg,
+        id: snap.id,
+      });
+      console.log(`Your doc was created at ${newDonation.path}`);
+      console.log(`Your doc id is ${newDonation.id}`);
+      console.log(`successfully added to donation`);
+    });
+  }

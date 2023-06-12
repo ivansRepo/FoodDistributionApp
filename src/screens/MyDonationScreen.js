@@ -4,10 +4,25 @@ import MyDonationListCard from '../components/MyDonationListCard'
 import { Card} from 'react-native-paper';
 import HomeHeader from '../components/HomeHeader';
 import { foodData } from '../components/Data';
-
+import { useState , useEffect} from 'react';
+import { getDonation, queryForDocuments, queryForDocuments1, queryForDocuments2, queryForDonation } from '../database/crud';
 
 export default function MyDonationScreen({navigation}){
+    const [foodList, setFoodList] = useState([]);
 
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const value = await queryForDocuments1();
+          setFoodList(value);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+  
+      fetchData();
+      console.log("My foodList : " + foodList)
+    }, []);
     return(
         <ScrollView>
             <HomeHeader navigation={navigation}/>
@@ -48,23 +63,19 @@ export default function MyDonationScreen({navigation}){
             </View>
         </Card>
 
-            <View>
-            <FlatList
-                scrollEnabled={false}
-                horizontal = {false}
-                data={foodData}
-                keyExtractor={item => item.id}
-                renderItem={({item})=>(
-                <View style={{marginBottom:10}}>   
-                    < MyDonationListCard
-                    foodName={item.foodName}
-                    location={item.location}
-                    quantity={item.meals} 
-                    />
-                </View> 
-            )} 
-            />
-            </View>
+        <View>
+          <FlatList
+            scrollEnabled={false}
+            horizontal={false}
+            data={foodList}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <View style={{ marginBottom: 10 }}>
+                <MyDonationListCard foodName={item.foodName} location={item.location} quantity={item.quantity} />
+              </View>
+            )}
+          />
+        </View>
         </ScrollView>
     )
 }

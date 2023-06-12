@@ -82,7 +82,7 @@ const DonateScreen = ({navigation}) => {
       function addToGivelistFunction() {
         // Implement your logic to add to Givelist
         console.log('Adding to Givelist...');
-        AddGiveList(selectedDate,descriptionName,"foodDonor" ,foodName,location,mealCount,selectedTime,selectedOption)
+        AddGiveList(selectedDate,descriptionName,"foodDonor" ,foodName,location,mealCount.toString(),selectedTime,selectedOption)
       }
       
   

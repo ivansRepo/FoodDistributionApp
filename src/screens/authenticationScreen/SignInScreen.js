@@ -9,9 +9,6 @@ import {signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
 import { logUser } from "../../database/crud";
 
-
-
-
 export default function SignInScreen({navigation}){
 
     const[textInput2Focussed, setTextInput2Focussed] = useState(false)
@@ -189,5 +186,4 @@ const styles = StyleSheet.create({
         height:50
         
     }
-
 })

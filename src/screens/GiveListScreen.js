@@ -4,8 +4,32 @@ import MyDonationListCard from '../components/MyDonationListCard';
 import { foodData } from '../components/Data';
 import Header from '../components/header';
 import AppButton from '../components/button';
+import { useState , useEffect} from 'react';
+import { getDonation, queryForDocuments, queryForDocuments1, queryForDocuments2, queryForDonation } from '../database/crud';
+import { AddDonationToFoodStore, AddDonationToFoodStore1, AddDonationToFoodStore2, AddGiveListToDonation1 } from '../database/create';
 
 export default function GiveListScreen({ navigation }) {
+  const [foodList, setFoodList] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const value = await queryForDocuments1();
+        setFoodList(value);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+    console.log("My foodList : " + foodList)
+  }, []);
+
+    function addToDonationNFoodStore(){
+      AddGiveListToDonation1();
+      AddDonationToFoodStore2();
+    }
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -19,15 +43,16 @@ export default function GiveListScreen({ navigation }) {
           <FlatList
             scrollEnabled={false}
             horizontal={false}
-            data={foodData}
+            data={foodList}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <View style={{ marginBottom: 10 }}>
-                <MyDonationListCard foodName={item.foodName} location={item.location} quantity={item.meals} />
+                <MyDonationListCard foodName={item.foodName} location={item.location} quantity={item.quantity} />
               </View>
             )}
           />
         </View>
+          
       </ScrollView>
 
       <View style={styles.donateSection}>
@@ -36,7 +61,7 @@ export default function GiveListScreen({ navigation }) {
             <Text style={styles.totalDonationText}>8</Text>
         </View>
         <View style={{width:'100%', marginBottom: 30, marginTop: 20}}>
-            <AppButton text="Donate"/>
+            <AppButton text="Donate" onClick={()=>addToDonationNFoodStore()}/>
         </View>
       </View>
     </View>
