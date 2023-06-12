@@ -6,7 +6,7 @@ export default function StatisticScreen({navigation}){
     
       return(
         <ScrollView>
-            <Header title = "Donation Details" type ="arrow-left" navigation={navigation} />
+            <Header title = "SansFaim" type ="arrow-left" navigation={navigation} />
             <View style={{flex:1, marginBottom:15}}>
                 <View style ={{flex:6, justifyContent:"center", borderRadius: 20}}>    
                     <View style={styles.slide1}>

@@ -12,11 +12,12 @@ export const currentUserID = (id) => {
   return actualuserID;
 }
 
+
 // FOOD DONOR TABLE
 
 // ADD FOOD DONOR
 export async function AddFoodDonor(em,fn,ln,loc,org,ph){
-    const donorCollection = collection(db,'FoodDonor')//reference
+    const donorCollection = collection(db,'FoodDonor')//reference 
     const newDonor = await addDoc(donorCollection,{
         email:em,
         firstName:fn,

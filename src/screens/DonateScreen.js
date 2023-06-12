@@ -18,6 +18,16 @@ const DonateScreen = ({navigation}) => {
         setSelectedOption(value);
       };
 
+       // photo upload
+      const handlePhotoUpload = () => {
+        console.log('Photo upload...');
+      };
+
+      const handleAddMorePhotos = () => {
+        // Implement your logic to add more photos here
+        console.log('Add more photos...');
+      };
+
       //date
       const [selectedDate, setSelectedDate] = useState('');
       const [isDatePickerVisible, setDatePickerVisible] = useState(false);
@@ -280,6 +290,21 @@ const DonateScreen = ({navigation}) => {
         <AppButton text={"Add to GiveList"} onClick={addToGivelistFunction} />
       </View>
 
+       {/* Photo upload */}
+       <View style={styles.photoContainer}>
+          <TouchableOpacity onPress={()=>{navigation.navigate('CameraScreen')}} style={styles.photoButton}>
+            <Icon name="camera" type="font-awesome" color="#517fa4" size={24} />
+            <Text style={styles.photoText}>Add Photo</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={handleAddMorePhotos} style={styles.addMorePhotos}>
+            <View style={styles.dottedSquare}>
+            <Icon name="plus" type="font-awesome" color="#517fa4" size={24} />
+            <Text style={styles.addMorePhotosText}>Add More Photos</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+
       </ScrollView>
       <View style={styles.floatingButton}>
             <TouchableOpacity
@@ -393,8 +418,39 @@ export default DonateScreen;
     height:60,
     borderRadius:30,
     alignItems:"center"
-  }
-  
+  },
+
+  photoContainer: {
+    marginTop: 10,
+    marginBottom: 20,
+    marginLeft:40
+  },
+  photoButton: {
+    flexDirection: 'row',
+
+    marginBottom: 10,
+  },
+  photoText: {
+    marginLeft: 10,
+    color: '#517fa4',
+    fontSize: 16,
+  },
+  addMorePhotos: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  dottedSquare: {
+    padding:20,
+    borderRadius: 2,
+    borderWidth: 1,
+    borderStyle: 'dashed',
+    borderColor: '#517fa4',
+    marginRight: 10,
+  },
+  addMorePhotosText: {
+    color: '#517fa4',
+    fontSize: 16,
+  },
 
   },
   

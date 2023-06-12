@@ -3,6 +3,8 @@ import { Card, ProgressBar } from 'react-native-paper';
 import AppButton from './button';
 import { colors } from '../global/styles';
 import { Icon } from 'react-native-elements';
+import { DonationQty } from '../database/crud';
+import { useEffect, useState } from 'react';
 
 
 const DonationCard = ({navigation,image,meal,supporter,location,screenWidth}) => {

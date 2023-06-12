@@ -1,9 +1,6 @@
-import { collection, doc, getDocs, query, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 //import { nameAlpha } from "../screens/GiveListScreen";
-
-
-const donorCollection = collection(db,'FoodDonor')//reference
 
 
 export function logUser(status,uuid) {
@@ -19,6 +16,59 @@ export function logUser(status,uuid) {
     .catch((error)=>{
         console.log(`I got an error! ${error}`)
     })
+}
+
+export async function queryLogUser(){
+  const foodQuery = query(
+      collection(db,'LogUser')//reference
+      //can add where()
+      //can add orderBy
+  );
+
+  const querySnapshot = await getDoc(foodQuery);
+  const doc = querySnapshot.userID
+
+  //console.log(JSON.stringify(filterData1,null,2))
+  //nameAlpha(filterData1)
+  return doc;
+}
+
+// get donors
+export async function updateDonor(email,firstName,lastName,location,organisation,phone,donorID){
+    const querySnapshot = doc(db,'FoodDonor',donorID);
+
+    await updateDoc(querySnapshot,{
+            email:email,
+            firstName:firstName,
+            lastName:lastName,
+            location:location,
+            organisation:organisation,
+            phone:phone,            
+          }
+        );
+}
+//update
+export async function queryDonor(donorID){
+  const filterData1 = []; 
+  console.log("UserID " + donorID)
+  let email,firstName,lastName,location,organisation,phone,id;
+  const querySnapshot = collection(db,'FoodDonor');
+
+  const snap = await getDocs(querySnapshot);
+      snap.forEach((doc)=>{
+        if(doc.id === donorID){
+          email=doc.data().email,
+          firstName=doc.data().firstName,
+          lastName=doc.data().lastName,
+          location=doc.data().location,
+          organisation=doc.data().organisation,
+          phone=doc.data().phone,            
+          id = doc.data().id
+        }
+      })      
+    console.log(({email,firstName,lastName,location,organisation,phone,id}))
+
+  return {email,firstName,lastName,location,organisation,phone,id};
 }
 
 //const querySnapshot = getDocs(collection(db, "cities"));
@@ -164,9 +214,9 @@ export async function DonationQty(location) {
     querySnapshot.forEach((snap) => {
       sum += parseInt(snap.data().quantity);
     });
-  
+    console.log("------------------------->" + JSON.stringify(sum))
     return sum;
-  }
+  };
 
   // Donors from each place
   export async function DonorQtyForEachRegion(location) {

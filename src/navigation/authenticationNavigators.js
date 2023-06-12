@@ -10,6 +10,9 @@ import JoinUsScreen from "../screens/JoinUsScreen";
 import MauritiusMapScreen from "../screens/MauritiusMapScreen";
 import GiveListScreen from "../screens/GiveListScreen";
 import SignUpScreen from "../screens/authenticationScreen/SignUpScreen";
+import CameraScreen from "../screens/CameraScreen";
+import PhotoPage from "../screens/PhotoPage";
+import NotificationScreen from "../screens/NotificationScreen";
 
 
 
@@ -86,6 +89,30 @@ export default function AuthenticationStack(){
             <Authentication.Screen 
                 name ="GiveListScreen"
                 component = {GiveListScreen}
+                options = {{
+                    headerShown: false,
+                    ...TransitionPresets.RevealFromBottomAndroid
+                }}
+            />
+            <Authentication.Screen 
+                name ="CameraScreen"
+                component = {CameraScreen}
+                options = {{
+                    headerShown: false,
+                    ...TransitionPresets.RevealFromBottomAndroid
+                }}
+            />
+            <Authentication.Screen 
+                name ="PhotoPage"
+                component = {PhotoPage}
+                options = {{
+                    headerShown: false,
+                    ...TransitionPresets.RevealFromBottomAndroid
+                }}
+            />
+            <Authentication.Screen 
+                name ="NotificationScreen"
+                component = {NotificationScreen}
                 options = {{
                     headerShown: false,
                     ...TransitionPresets.RevealFromBottomAndroid

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import  {ScrollView,View,Text,StyleSheet,FlatList,Dimensions, TouchableOpacity} from 'react-native'
 import HomeHeader from "../components/HomeHeader";
 import DonationCard from "../components/DonationCard";
@@ -7,10 +7,32 @@ import JoinUsCard from "../components/JoinUsCard";
 import { filterData } from "../components/Data";
 import { Icon } from "react-native-elements";
 import { colors } from "../global/styles";
+import { DonationQty } from "../database/crud";
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
+
+
 export default function HomeScreen({navigation}){
+
+    {/*const [qtyList, setQtyList] = useState({});
+
+      useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const value = await DonationQty("Vacoas");
+            setQtyList(value);
+          } catch (error) {
+            console.error(error);
+          }
+        };
+    
+        fetchData();
+        console.log("My foodList : " +JSON.stringify((qtyList)))
+      },{});*/}
+
+
+
     return (
         <View style ={styles.container}>
         <ScrollView >

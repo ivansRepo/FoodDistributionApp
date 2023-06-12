@@ -1,11 +1,23 @@
-import React, { useState } from 'react';
-import { View, TouchableOpacity,Image,StyleSheet,Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, TouchableOpacity, Image, StyleSheet, Text } from 'react-native';
 import { Input, Button, Icon } from 'react-native-elements';
 import HomeHeader from '../components/HomeHeader';
 import Header from '../components/header';
+import { ScrollView } from 'react-native';
+import { queryDonor, updateDonor } from '../database/crud';
+import { currentUserID } from '../database/create';
 
-const ProfileScreen = ({navigation}) => {
-  const [name, setName] = useState('');
+let actualuserID = '';
+
+export const userID = (id) => {
+  actualuserID = id;
+  return actualuserID;
+}
+
+const ProfileScreen = ({ navigation }) => {
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [isEmailFocused, setIsEmailFocused] = useState(false);
   const [password, setPassword] = useState('');
@@ -16,7 +28,40 @@ const ProfileScreen = ({navigation}) => {
   const [location, setLocation] = useState('');
   const [isLocationFocused, setIsLocationFocused] = useState(false);
   const [phone, setPhone] = useState('');
-  
+  const [showSaveButton, setShowSaveButton] = useState(false);
+
+  const [donorList, setdonorList] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const value = await  queryDonor(actualuserID);
+        setdonorList(value);
+        setFirstName(value.firstName);
+        setEmail(value.email);
+        setLastName(value.lastName);
+        setLocation(value.location);
+        setJobTitle(value.organisation);
+        setPhone(value.phone);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+    
+    //firstName = donorList.firstName;
+    
+  }, []);
+  console.log("donor is: " +  JSON.stringify(donorList,null,2))
+  console.log("firstName : " + donorList)
+  console.log("My donorList : " + donorList.firstName,"wwwwww")
+
+  // photo upload
+  const handlePhotoUpload = () => {
+    // Implement your logic to handle photo upload here
+    console.log('Photo upload...');
+  };
+
   const handleEmailFocus = () => {
     setIsEmailFocused(true);
   };
@@ -57,27 +102,71 @@ const ProfileScreen = ({navigation}) => {
     setIsPasswordFocused(false);
   };
 
+  const handleEditProfile = () => {
+    if (showSaveButton == false){
+      setShowSaveButton(true);
+    }
+    else{
+      setShowSaveButton(false);
+    }
+  };
+
+  const handleSaveChanges = () => {
+      console.log(email,firstName,lastName,location,jobTitle,phone,actualuserID)
+      updateDonor(email,firstName,lastName,location,jobTitle,phone,actualuserID)
+    setShowSaveButton(false);
+  };
+
   return (
-    <View>
-      <Header title = "My Profile" type ="arrow-left" navigation={navigation} />
-      <View style={{flexDirection:"row",marginLeft:20,marginTop:20}}>
-        <TouchableOpacity>
-                      <Image 
-                          style={{height:60, width:60, alignItems:"center", justifyContent:"center",marginLeft:15}}
-                          source ={require('../../assets/account.png')}
-                          />
+    <ScrollView style={styles.container}>
+      <Header title="My Profile" type="arrow-left" navigation={navigation} />
+      <View style={{ flexDirection: 'row', marginLeft: 20, marginTop: 20 }}>
+        <TouchableOpacity onPress={handleEditProfile}>
+          <Image
+            style={{ height: 60, width: 60, alignItems: "center", justifyContent: "center", marginLeft: 15 }}
+            source={require('../../assets/account.png')}
+          />
         </TouchableOpacity>
-      <View style={styles.textContainer}>
-        <Text style={styles.title}>Bob Marley</Text>
+        <View style={styles.textContainer}>
+          <Text style={styles.title}>Bob Marley</Text>
+        </View>
+        <Icon
+            name="pencil"
+            type="font-awesome"
+            color="#517fa4"
+            size={20}
+            containerStyle={styles.editIcon}
+            onPress={handleEditProfile}
+          />
       </View>
-      </View> 
-      <View style={{margin: 40 }}>
+      <View style={{}}>
+          <TouchableOpacity onPress={handlePhotoUpload} style={styles.photoButton}>
+            <Icon name="camera" type="font-awesome" color="#517fa4" size={15} />
+            <Text style={{fontSize:10,marginLeft:5,color:'gray'}}>Change pic</Text>
+          </TouchableOpacity>
+      </View>
+      <View style={{ marginHorizontal: 40, marginTop:20,marginBottom:20  }}>
         <View style={{ marginBottom: 0 }}>
           <Input
-            label='Name'
-            placeholder='Your name'
-            value={name}
-            onChangeText={setName}
+            label='FirstName'
+            placeholder='Your firstname'
+            value={firstName}
+            onChangeText={setFirstName}
+            leftIcon={
+              <Icon
+                name='user'
+                type='font-awesome'
+                color='#517fa4'
+              />
+            }
+          />
+        </View>
+        <View style={{ marginBottom: 0 }}>
+          <Input
+            label='LastName'
+            placeholder='Your lastname'
+            value={lastName}
+            onChangeText={setLastName}
             leftIcon={
               <Icon
                 name='user'
@@ -92,8 +181,7 @@ const ProfileScreen = ({navigation}) => {
             label='Email'
             placeholder='Your email'
             value={email}
-            onFocus={handleEmailFocus}
-            onBlur={handleEmailBlur}
+            onChangeText={setEmail}
             leftIcon={
               <Icon
                 name='envelope'
@@ -111,7 +199,7 @@ const ProfileScreen = ({navigation}) => {
             }}
           />
         </View>
-        <View style={{ marginBottom: 0 }}>
+        {/*<View style={{ marginBottom: 0 }}>
           <Input
             label='Password'
             placeholder='Your password'
@@ -135,12 +223,13 @@ const ProfileScreen = ({navigation}) => {
               paddingHorizontal: 0
             }}
           />
-        </View>
+        </View>*/}
         <View style={{ marginBottom: 0 }}>
           <Input
             label='Phone'
             placeholder='Your phone number'
             value={phone}
+            onChangeText={setPhone}
             onFocus={handlePhoneFocus}
             onBlur={handlePhoneBlur}
             leftIcon={
@@ -165,6 +254,7 @@ const ProfileScreen = ({navigation}) => {
             label='Job Title'
             placeholder='Your job title'
             value={jobTitle}
+            onChangeText={setJobTitle}
             onFocus={handleJobTitleFocus}
             onBlur={handleJobTitleBlur}
             leftIcon={
@@ -187,9 +277,10 @@ const ProfileScreen = ({navigation}) => {
         </View>
         <View style={{ marginBottom: 0 }}>
           <Input
-            label='Location'
-            placeholder='Your location'
+            label='Address'
+            placeholder='Your Address'
             value={location}
+            onChangeText={setLocation}
             onFocus={handleLocationFocus}
             onBlur={handleLocationBlur}
             leftIcon={
@@ -209,26 +300,42 @@ const ProfileScreen = ({navigation}) => {
             }}
           />
         </View>
-        <Button title='Save Changes' />
+        
+        {showSaveButton && (
+          <Button title='Save Changes' style={styles.buttonSave} onPress={handleSaveChanges} />
+        )}
+        
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 export default ProfileScreen;
 
 const styles = StyleSheet.create({
-  container:{
-      flex:1,
+  container: {
+    flex: 1,
+    marginBotom:10
   },
   textContainer: {
-      paddingTop: 20,
-      marginHorizontal: 20,
-      marginBottom:20,
-      justifyContent: 'center',
-    },
-    title: {
-      fontWeight: 'bold',
-      fontSize: 20,
-    },
-  })
+    marginHorizontal: 20,
+    justifyContent: 'center',
+  },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  buttonSave:{
+    marginBottom: 20
+  },
+  editIcon: {
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
+
+  },
+  photoButton: {
+    flexDirection: 'row',
+    marginTop: 10,
+    marginLeft: 60
+  },
+});
